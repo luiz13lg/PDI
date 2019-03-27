@@ -165,6 +165,7 @@ public class PDI {
         
         return true;
     }
+    
     private static boolean salvarHistograma(int[] histograma, String SalvarHistograma) throws FileNotFoundException, IOException{
         OutputStream salvar = new FileOutputStream(SalvarHistograma);
         
@@ -241,20 +242,20 @@ public class PDI {
         return imagem;
     }
 
-    private static int[][] subImagem(int matriz1[][], int matriz2[][], int i, int j){
-        int imagem[][] = new int[i][j];
-        
-        
-        for(int auxL = 0; auxL < i; auxL++)
-                for(int auxC = 0; auxC < j; auxC++){
-                    int aux = matriz1[auxL][auxC];
-                    int aux2 = matriz2[auxL][auxC];
-                    if(aux && aux2)
-                        imagem[auxL][auxC] = matriz1[auxL][auxC];
-                    else imagem[auxL][auxC] = 0;
-                }
-        return imagem;
-    }
+//    private static int[][] subImagem(int matriz1[][], int matriz2[][], int i, int j){
+//        int imagem[][] = new int[i][j];
+//        
+//        
+//        for(int auxL = 0; auxL < i; auxL++)
+//                for(int auxC = 0; auxC < j; auxC++){
+//                    int aux = matriz1[auxL][auxC];
+//                    int aux2 = matriz2[auxL][auxC];
+//                    if(aux && aux2)
+//                        imagem[auxL][auxC] = matriz1[auxL][auxC];
+//                    else imagem[auxL][auxC] = 0;
+//                }
+//        return imagem;
+//    }
     
     private static int[][] gama(int matriz[][], int i, int j, float c, float g){
         int imagem[][] = new int[i][j];
