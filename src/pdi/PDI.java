@@ -53,7 +53,7 @@ public class PDI {
 //        matrizResul = subImagem(matriz, matriz2, tam[0], tam[1]);
 //        matrizResul = zoomIn(matriz, tam[0], tam[1]);
         
-        matrizResul = filtro(matriz, tam[0], tam[1], matriz2, media, tamFiltro);
+        matrizResul = filtroLaplaciano(matriz, tam[0], tam[1]);
 
 //        salvarMatriz(matriz2,tam[0],tam[1], AbrirArq2);
         salvarMatriz(matrizResul,tam[0],tam[1], SalvarArq);
@@ -340,17 +340,27 @@ public class PDI {
         int auxSoma = 0;
         int auxTamFiltro = tamFiltro/2;
         
-        for(int auxL = auxTamFiltro; auxL < i-auxTamFiltro; auxL++)
-            for(int auxC = auxTamFiltro; auxC < j-auxTamFiltro; auxC++){
+        int auxI = i-auxTamFiltro;
+        int auxJ = j-auxTamFiltro;
+        
+        for(int auxL = auxTamFiltro; auxL < auxI; auxL++)
+            for(int auxC = auxTamFiltro; auxC < auxJ; auxC++){
                 for(int filtroL = 0; filtroL < tamFiltro; filtroL++)
-                    for(int filtroC = 0; filtroC < tamFiltro; filtroC++){
+                    for(int filtroC = 0; filtroC < tamFiltro; filtroC++)
                         auxSoma += matriz[auxL+filtroL-auxTamFiltro][auxC+filtroC-auxTamFiltro]*filtro[filtroL][filtroC];
-                    } 
                 imagem[auxL][auxC] = (int)(auxSoma/media);
                 auxSoma = 0;
             }
         return imagem;
     } 
 
-    public static 
+    public static int[][] filtroLaplaciano(int matriz[][], int i, int j){
+        int imagem[][] = matriz;
+        
+        for(int auxL = 1; auxL < i-1; auxL++)
+            for(int auxC = 1; auxC < j-1; auxC++)
+                imagem[auxL][auxC] = imagem[auxL+1][auxC] + imagem[auxL-1][auxC]+imagem[auxL][auxC+1]+imagem[auxL][auxC-1]-4*imagem[auxL][auxC];
+        
+        return imagem;
+    }
 }
