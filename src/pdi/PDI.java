@@ -31,6 +31,7 @@ public class PDI {
         int matrizResul[][];
         int histograma[];
         int media;
+        int tamFiltro;
         
         String AbrirArq1 = "C:\\Users\\Luiz\\Dropbox\\Estudo\\UNESP\\5º ano\\PDI\\lena.pgm";
 //        String AbrirArq2 = "E:\\caveira2.pgm";
@@ -40,8 +41,10 @@ public class PDI {
         tam = tamMatriz(AbrirArq1);
         
         matriz = lerArquivo(AbrirArq1, tam[0], tam[1]);
-        matriz2 = iniciaFiltro();
-        media = mediaFiltro(matriz2);
+        
+        tamFiltro = 9;
+        matriz2 = iniciaFiltro(tamFiltro);
+        media = mediaFiltro(matriz2, tamFiltro);
 //        matrizTrans = matTrans(256, 256, 25);
 //        
 //        matrizResul = somarMatriz(matriz, matrizTrans, tam[0], tam[1]);
@@ -50,28 +53,28 @@ public class PDI {
 //        matrizResul = subImagem(matriz, matriz2, tam[0], tam[1]);
 //        matrizResul = zoomIn(matriz, tam[0], tam[1]);
         
-        matrizResul = filtro(matriz, tam[0], tam[1], matriz2, media);
+        matrizResul = filtro(matriz, tam[0], tam[1], matriz2, media, tamFiltro);
 
 //        salvarMatriz(matriz2,tam[0],tam[1], AbrirArq2);
         salvarMatriz(matrizResul,tam[0],tam[1], SalvarArq);
 //        salvarHistograma(histograma,SalvarHistograma);
     }
     
-    public static int[][] iniciaFiltro(){
-        int matriz[][] = new int[3][3];
+    public static int[][] iniciaFiltro(int tamFiltro){
+        int matriz[][] = new int[tamFiltro][tamFiltro];
         
-        for(int l = 0; l < 3; l++)
-            for(int c = 0; c < 3; c++)
+        for(int l = 0; l < tamFiltro; l++)
+            for(int c = 0; c < tamFiltro; c++)
                 matriz[l][c] = 1;
         
         return matriz;
     }
     
-    public static int mediaFiltro(int[][] matriz){
+    public static int mediaFiltro(int[][] matriz, int tamFiltro){
         int media = 0;
         
-        for(int l = 0; l < 3; l++)
-            for(int c = 0; c < 3; c++)
+        for(int l = 0; l < tamFiltro; l++)
+            for(int c = 0; c < tamFiltro; c++)
                 media += matriz[l][c];
         
         return media;
@@ -332,20 +335,19 @@ public class PDI {
         return imagem;
     }
     
-    public static int[][] filtro(int matriz[][], int i, int j, int filtro[][], int media){
+    public static int[][] filtro(int matriz[][], int i, int j, int filtro[][], int media, int tamFiltro){
         int imagem[][] = matriz;
-        int auxSoma;
+        int auxSoma = 0;
+        int auxTamFiltro = tamFiltro/2;
         
-        for(int auxL = 1; auxL < i-1; auxL++)
-            for(int auxC = 1; auxC < j-1; auxC++){
-                auxSoma = matriz[auxL-1][auxC-1]*imagem[0][0] + matriz[auxL-1][auxC]*imagem[0][1] + matriz[auxL-1][auxC+1]*imagem[0][2] 
-                        + matriz[auxL][auxC-1]*imagem[1][0] + matriz[auxL][auxC]*imagem[1][1] + matriz[auxL][auxC+1]*imagem[1][2] 
-                        + matriz[auxL+1][auxC-1]*imagem[2][0] + matriz[auxL+1][auxC]*imagem[2][1] + matriz[auxL+1][auxC+1]*imagem[2][2];
-                System.out.println(matriz[auxL-1][auxC-1]+"  "+matriz[auxL-1][auxC]+"  "+matriz[auxL-1][auxC+1]);
-                System.out.println(matriz[auxL][auxC-1]+"  "+matriz[auxL][auxC]+"  "+matriz[auxL][auxC+1]);
-                System.out.println(matriz[auxL+1][auxC-1]+"  "+matriz[auxL+1][auxC]+"  "+matriz[auxL+1][auxC+1]);
-                System.out.println(auxSoma);
-                imagem[auxL][auxC] = (int)(auxSoma/9.0);
+        for(int auxL = auxTamFiltro; auxL < i-auxTamFiltro; auxL++)
+            for(int auxC = auxTamFiltro; auxC < j-auxTamFiltro; auxC++){
+                for(int filtroL = 0; filtroL < tamFiltro; filtroL++)
+                    for(int filtroC = 0; filtroC < tamFiltro; filtroC++){
+                        auxSoma += matriz[auxL+filtroL-auxTamFiltro][auxC+filtroC-auxTamFiltro]*filtro[filtroL][filtroC];
+                    } 
+                imagem[auxL][auxC] = (int)(auxSoma/media);
+                auxSoma = 0;
             }
         return imagem;
     } 
