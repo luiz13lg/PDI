@@ -80,7 +80,7 @@ public class PDI {
         return media;
     }
     
-    private static int [][] iniciarMatriz(int i, int j){
+    public static int [][] iniciarMatriz(int i, int j){
         int m[][] = new int[i][j];
         Scanner s = new Scanner(System.in);
         
@@ -93,7 +93,7 @@ public class PDI {
         return m;
     }
     
-    private static void imprimirMatriz(int m[][], int i, int j){
+    public static void imprimirMatriz(int m[][], int i, int j){
         for(int aL = 0; aL < i; aL++){
             //System.out.print("|  ");
             for(int aC = 0; aC < j; aC++)
@@ -102,7 +102,7 @@ public class PDI {
         }
     }
     
-    private static int[][] somarPerMatriz(int m1[][], int i, int j, float p){
+    public static int[][] somarPerMatriz(int m1[][], int i, int j, float p){
         int mR[][] = new int[i][j];
         
         for(int aL = 0; aL < i; aL++)
@@ -113,7 +113,7 @@ public class PDI {
         return mR;
     }
     
-    private static int[][] somarMatriz(int m1[][], int m2[][],int i,int j){
+    public static int[][] somarMatriz(int m1[][], int m2[][],int i,int j){
         int mR[][] = new int[i][j];
         
         for(int aL = 0; aL < i; aL++)
@@ -124,7 +124,7 @@ public class PDI {
         return mR;
     }
     
-    private static int[] tamMatriz(String localArq) throws FileNotFoundException, IOException{
+    public static int[] tamMatriz(String localArq) throws FileNotFoundException, IOException{
         int tam[] = new int[2];
         
         BufferedReader br;
@@ -144,7 +144,7 @@ public class PDI {
         return tam;
     }
     
-    private static int[][] lerArquivo(String localArq, int l, int c) throws FileNotFoundException, IOException{
+    public static int[][] lerArquivo(String localArq, int l, int c) throws FileNotFoundException, IOException{
         BufferedReader br = new BufferedReader(new FileReader(localArq));
         int matriz[][] = new int[l][c];
         String valoresLinha = null;
@@ -159,7 +159,7 @@ public class PDI {
         return matriz;
     }
     
-    private static int[][] matTrans(int i, int j, int valor){   //inicia a matriz para operacao
+    public static int[][] matTrans(int i, int j, int valor){   //inicia a matriz para operacao
         int matriz[][] = new int[i][j];
         
         for(int aL = 0; aL < i; aL++)
@@ -170,7 +170,7 @@ public class PDI {
         return matriz;
     }
     
-    private static boolean salvarMatriz(int[][] m,int i, int j, String SalvarArq) throws FileNotFoundException, IOException{
+    public static boolean salvarMatriz(int[][] m,int i, int j, String SalvarArq) throws FileNotFoundException, IOException{
         OutputStream salvar = new FileOutputStream(SalvarArq);
         
         String cabecalho = "P2\n#CREATOR: LUIZ G THOMAZ\n"+j+" "+i+"\n255\n";
@@ -190,7 +190,7 @@ public class PDI {
         return true;
     }
     
-    private static boolean salvarHistograma(int[] histograma, String SalvarHistograma) throws FileNotFoundException, IOException{
+    public static boolean salvarHistograma(int[] histograma, String SalvarHistograma) throws FileNotFoundException, IOException{
         OutputStream salvar = new FileOutputStream(SalvarHistograma);
         
         byte[] salvando;
@@ -203,7 +203,7 @@ public class PDI {
         return true;
     }
     
-    private static int[][] girarNovGraus(int matriz[][], int i, int j){
+    public static int[][] girarNovGraus(int matriz[][], int i, int j){
         int giro[][] = new int[j][i];
         
         int linha = i-1;
@@ -215,7 +215,7 @@ public class PDI {
         return giro;
     }
     
-    private static int[][] binarizarMatriz(int matriz[][], int i, int j, int k){;
+    public static int[][] binarizarMatriz(int matriz[][], int i, int j, int k){;
         int imagem[][] = new int[i][j];
         
         for(int auxL = 0; auxL < i; auxL++)
@@ -227,7 +227,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] flipMatriz(int matriz[][], int i, int j, int mod){
+    public static int[][] flipMatriz(int matriz[][], int i, int j, int mod){
         int imagem[][] = new int[i][j];
         
         if(mod == 0)
@@ -242,7 +242,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] binarizacaoSeletiva(int matriz[][], int i, int j, int A, int B, int tomClaro, int tomEscuro){
+    public static int[][] binarizacaoSeletiva(int matriz[][], int i, int j, int A, int B, int tomClaro, int tomEscuro){
         int imagem[][] = new int[i][j];
         
         for(int auxL = 0; auxL < i; auxL++)
@@ -254,7 +254,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] destacarPonto(int matriz[][], int i, int j, int A, int B, int tomClaro){
+    public static int[][] destacarPonto(int matriz[][], int i, int j, int A, int B, int tomClaro){
         int imagem[][] = new int[i][j];
         
         for(int auxL = 0; auxL < i; auxL++)
@@ -266,7 +266,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] gama(int matriz[][], int i, int j, float c, float g){
+    public static int[][] gama(int matriz[][], int i, int j, float c, float g){
         int imagem[][] = new int[i][j];
         
         for(int auxL = 0; auxL < i; auxL++)
@@ -276,7 +276,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] log(int matriz[][], int i, int j, int r, int c){
+    public static int[][] log(int matriz[][], int i, int j, int r, int c){
         int imagem[][] = new int[i][j];
         
         for(int auxL = 0; auxL < i; auxL++)
@@ -286,7 +286,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] zoomIn(int matriz[][], int i, int j){
+    public static int[][] zoomIn(int matriz[][], int i, int j){
         int imagem[][] = new int[i*2][j*2];
         
         for(int auxL = 0, aL = 0; auxL < i; auxL++, aL = aL+2)
@@ -300,7 +300,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[][] zoomOut(int matriz[][], int i, int j){
+    public static int[][] zoomOut(int matriz[][], int i, int j){
         int imagem[][] = new int[i/2][j/2];
         
         for(int auxL = 0, aL = 0; auxL < i; auxL=auxL+2, aL++)
@@ -310,7 +310,7 @@ public class PDI {
         return imagem;
     }
     
-    private static int[] histograma(int matriz[][], int i, int j){
+    public static int[] histograma(int matriz[][], int i, int j){
         int histograma[] = new int[255];
         
         for(int auxL = 0, aL = 0; auxL < i; auxL=auxL+2, aL++)
@@ -320,7 +320,7 @@ public class PDI {
         return histograma;
     }
     
-    private static int[][] eqReta(int matriz[][], int i, int j, int min, int max){
+    public static int[][] eqReta(int matriz[][], int i, int j, int min, int max){
         int imagem[][] = new int [i][j];
         
         float a = (float) (max-min)/255;
@@ -352,4 +352,5 @@ public class PDI {
         return imagem;
     } 
 
+    public static 
 }
