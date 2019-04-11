@@ -25,6 +25,8 @@ public class PDI {
      */
     public static void main(String[] args) throws IOException {
         int tam[];
+        rgb matrizRGB[][];
+        rgb matrizResulRGB[][];
         int matriz[][];
         int matriz2[][];
         int matrizTrans[][];
@@ -33,18 +35,18 @@ public class PDI {
         int media;
         int tamFiltro;
         
-        String AbrirArq1 = "C:\\Users\\Luiz\\Dropbox\\Estudo\\UNESP\\5º ano\\PDI\\lena.pgm";
+        String AbrirArq1 = "C:\\Users\\cc151255911\\Desktop\\lenna.ppm";
 //        String AbrirArq2 = "E:\\caveira2.pgm";
-        String SalvarArq = "C:\\Users\\Luiz\\Dropbox\\Estudo\\UNESP\\5º ano\\PDI\\modificado.pgm";
+        String SalvarArq = "C:\\Users\\cc151255911\\Desktop\\modificado.pgm";
         String SalvarHistograma = "E:\\histograma.txt";
         
         tam = tamMatriz(AbrirArq1);
         
-        matriz = lerArquivo(AbrirArq1, tam[0], tam[1]);
-        
-        tamFiltro = 9;
-        matriz2 = iniciaFiltro(tamFiltro);
-        media = mediaFiltro(matriz2, tamFiltro);
+        matrizRGB = leituraRGB(tam[0], tam[1], AbrirArq1);
+        matrizResul = getCanalB(matrizRGB,tam[0],tam[1]);
+//        tamFiltro = 9;
+//        matriz2 = iniciaFiltro(tamFiltro);
+//        media = mediaFiltro(matriz2, tamFiltro);
 //        matrizTrans = matTrans(256, 256, 25);
 //        
 //        matrizResul = somarMatriz(matriz, matrizTrans, tam[0], tam[1]);
@@ -53,10 +55,10 @@ public class PDI {
 //        matrizResul = subImagem(matriz, matriz2, tam[0], tam[1]);
 //        matrizResul = zoomIn(matriz, tam[0], tam[1]);
         
-        matrizResul = filtroLaplaciano(matriz, tam[0], tam[1]);
+//        matrizResul = filtroLaplaciano(matriz, tam[0], tam[1]);
 
-//        salvarMatriz(matriz2,tam[0],tam[1], AbrirArq2);
         salvarMatriz(matrizResul,tam[0],tam[1], SalvarArq);
+//        salvarMatrizRGB(matrizResulRGB,tam[0],tam[1], SalvarArq);
 //        salvarHistograma(histograma,SalvarHistograma);
     }
     
@@ -361,6 +363,56 @@ public class PDI {
             for(int auxC = 1; auxC < j-1; auxC++)
                 imagem[auxL][auxC] = imagem[auxL+1][auxC] + imagem[auxL-1][auxC]+imagem[auxL][auxC+1]+imagem[auxL][auxC-1]-4*imagem[auxL][auxC];
         
+        return imagem;
+    }
+
+    public static rgb[][] leituraRGB(int i, int j, String localArq) throws FileNotFoundException, IOException{
+        BufferedReader br = new BufferedReader(new FileReader(localArq));
+        rgb m[][] = new rgb[i][j];
+        Scanner s = new Scanner(System.in);
+        String valoresLinha = null;
+        
+        
+        for(int aux = 0; aux < 4; aux++)
+            valoresLinha = br.readLine();
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                m[aL][aC] = new rgb();
+                m[aL][aC].setR(Integer.valueOf(br.readLine()));
+                m[aL][aC].setG(Integer.valueOf(br.readLine()));
+                m[aL][aC].setB(Integer.valueOf(br.readLine()));
+            }
+        return m;
+    }
+    
+    public static int[][] getCanalR(rgb matriz[][], int i, int j){
+        int[][] imagem = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = matriz[aL][aC].getR();
+            }
+        return imagem;
+    }
+    
+    public static int[][] getCanalB(rgb matriz[][], int i, int j){
+        int[][] imagem = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = matriz[aL][aC].getB();
+            }
+        return imagem;
+    }
+    
+    public static int[][] getCanalG(rgb matriz[][], int i, int j){
+        int[][] imagem = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = matriz[aL][aC].getG();
+            }
         return imagem;
     }
 }
