@@ -5,15 +5,23 @@
  */
 package pdi;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Luiz
  */
 public class iu_principal extends javax.swing.JFrame {
-
+    
+    int imagemCinza[][];
+    rgb imagemRGB[][];
+    int tamanho[];
+    
     /**
      * Creates new form iu_principal
      */
@@ -21,6 +29,7 @@ public class iu_principal extends javax.swing.JFrame {
         initComponents();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,31 +39,110 @@ public class iu_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        nomeImagem = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         imagem = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        reduzCanalR = new javax.swing.JMenuItem();
+        reduzCanalG = new javax.swing.JMenuItem();
+        reduzCanalB = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        extrairCanalR = new javax.swing.JMenuItem();
+        extrairCanalG = new javax.swing.JMenuItem();
+        extrairCanalB = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenu3 = new javax.swing.JMenu();
+        gerarHistograma = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Arquivo:");
-
-        jButton1.setText("Abrir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        setResizable(false);
 
         imagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton2.setText("Procurar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.setText("Arquivo");
+
+        jMenuItem1.setText("Abrir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem3.setText("Salvar");
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("RGB");
+
+        reduzCanalR.setText("Reduzir Canal R");
+        reduzCanalR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reduzCanalRActionPerformed(evt);
+            }
+        });
+        jMenu2.add(reduzCanalR);
+
+        reduzCanalG.setText("Reduzir Canal G");
+        reduzCanalG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reduzCanalGActionPerformed(evt);
+            }
+        });
+        jMenu2.add(reduzCanalG);
+
+        reduzCanalB.setText("Reduzir Canal B");
+        reduzCanalB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reduzCanalBActionPerformed(evt);
+            }
+        });
+        jMenu2.add(reduzCanalB);
+        jMenu2.add(jSeparator1);
+
+        extrairCanalR.setText("Extrair Canal R");
+        extrairCanalR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extrairCanalRActionPerformed(evt);
+            }
+        });
+        jMenu2.add(extrairCanalR);
+
+        extrairCanalG.setText("Extrair Canal G");
+        extrairCanalG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extrairCanalGActionPerformed(evt);
+            }
+        });
+        jMenu2.add(extrairCanalG);
+
+        extrairCanalB.setText("Extrair Canal B");
+        extrairCanalB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extrairCanalBActionPerformed(evt);
+            }
+        });
+        jMenu2.add(extrairCanalB);
+        jMenu2.add(jSeparator2);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Cinza");
+
+        gerarHistograma.setText("Gerar Histograma");
+        gerarHistograma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerarHistogramaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(gerarHistograma);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,28 +150,13 @@ public class iu_principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(nomeImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nomeImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -91,20 +164,108 @@ public class iu_principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String arquivo = nomeImagem.getText();
-        
-        ImageIcon img = new ImageIcon(arquivo);
-        imagem.setIcon(img);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         JFileChooser fc = new JFileChooser();                           //escolhendo o arquivo
         int result = fc.showOpenDialog(getParent());                    //;
         String arquivo = fc.getSelectedFile().getAbsolutePath();        //
+
+        ImageIcon img = new ImageIcon(arquivo);
+        imagem.setIcon(img);
         
-        nomeImagem.setText(arquivo);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        try {
+            //iniciando matriz em tom de cinza
+            tamanho = cinza.tamMatriz(arquivo);
+            this.imagemCinza =  cinza.lerCinza(arquivo,tamanho[0],tamanho[1]);
+            
+            //iniciando matriz RGB
+            this.imagemRGB = rgb.leituraRGB(arquivo, tamanho[0], tamanho[1]);
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void gerarHistogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarHistogramaActionPerformed
+        try {
+            PDI.salvarHistograma(PDI.histograma(imagemCinza,tamanho[0],tamanho[1]),"E:\\histograma.txt");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_gerarHistogramaActionPerformed
+
+    private void reduzCanalRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reduzCanalRActionPerformed
+        rgb rgbAuxiliar[][];
+        int valor = Integer.valueOf(JOptionPane.showInputDialog("Insira o valor a ser reduzido"));
+        
+        rgbAuxiliar = rgb.reduzirCanalR(imagemRGB, tamanho[0], tamanho[1], valor);
+        
+        try {
+            rgb.salvarMatriz(rgbAuxiliar, tamanho[0], tamanho[1], "C:\\novaImagem.pbm");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_reduzCanalRActionPerformed
+
+    private void reduzCanalGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reduzCanalGActionPerformed
+                rgb rgbAuxiliar[][];
+        int valor = Integer.valueOf(JOptionPane.showInputDialog("Insira o valor a ser reduzido"));
+        
+        rgbAuxiliar = rgb.reduzirCanalG(imagemRGB, tamanho[0], tamanho[1], valor);
+        
+        try {
+            rgb.salvarMatriz(rgbAuxiliar, tamanho[0], tamanho[1], "C:\\novaImagem.pbm");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_reduzCanalGActionPerformed
+
+    private void reduzCanalBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reduzCanalBActionPerformed
+        rgb rgbAuxiliar[][];
+        int valor = Integer.valueOf(JOptionPane.showInputDialog("Insira o valor a ser reduzido"));
+        
+        rgbAuxiliar = rgb.reduzirCanalB(imagemRGB, tamanho[0], tamanho[1], valor);
+        
+        try {
+            rgb.salvarMatriz(rgbAuxiliar, tamanho[0], tamanho[1], "C:\\novaImagem.pbm");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_reduzCanalBActionPerformed
+
+    private void extrairCanalRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalRActionPerformed
+        int auxCinza[][];
+        
+        auxCinza = rgb.extrairCanalR(imagemRGB,tamanho[0],tamanho[1]);
+        
+        try {
+            cinza.salvarMatriz(auxCinza, tamanho[0], tamanho[1], "C:\\novaImagem.pgm");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_extrairCanalRActionPerformed
+
+    private void extrairCanalGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalGActionPerformed
+        int auxCinza[][];
+        
+        auxCinza = rgb.extrairCanalG(imagemRGB,tamanho[0],tamanho[1]);
+        
+        try {
+            cinza.salvarMatriz(auxCinza, tamanho[0], tamanho[1], "C:\\novaImagem.pgm");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_extrairCanalGActionPerformed
+
+    private void extrairCanalBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalBActionPerformed
+        int auxCinza[][];
+        
+        auxCinza = rgb.extrairCanalB(imagemRGB,tamanho[0],tamanho[1]);
+        
+        try {
+            cinza.salvarMatriz(auxCinza, tamanho[0], tamanho[1], "C:\\novaImagem.pgm");
+        } catch (IOException ex) {
+            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_extrairCanalBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,10 +303,21 @@ public class iu_principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem extrairCanalB;
+    private javax.swing.JMenuItem extrairCanalG;
+    private javax.swing.JMenuItem extrairCanalR;
+    private javax.swing.JMenuItem gerarHistograma;
     private javax.swing.JLabel imagem;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField nomeImagem;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JMenuItem reduzCanalB;
+    private javax.swing.JMenuItem reduzCanalG;
+    private javax.swing.JMenuItem reduzCanalR;
     // End of variables declaration//GEN-END:variables
 }

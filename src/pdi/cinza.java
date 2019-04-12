@@ -18,7 +18,7 @@ import java.util.Scanner;
  * @author Luiz
  */
 public class cinza {
-    public static int[][] lerArquivo(String localArq, int l, int c) throws FileNotFoundException, IOException{
+    public static int[][] lerCinza(String localArq, int l, int c) throws FileNotFoundException, IOException{
         BufferedReader br = new BufferedReader(new FileReader(localArq));
         int matriz[][] = new int[l][c];
         String valoresLinha = null;

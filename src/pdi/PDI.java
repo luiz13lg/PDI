@@ -38,7 +38,7 @@ public class PDI {
         
         tam = cinza.tamMatriz(AbrirArq);
         
-        matrizRGB = rgb.leituraRGB(tam[0], tam[1], AbrirArq);
+        matrizRGB = rgb.leituraRGB(AbrirArq, tam[0], tam[1]);
         matrizResul = rgb.getCanalB(matrizRGB,tam[0],tam[1]);
         
         cinza.salvarMatriz(matrizResul,tam[0],tam[1], SalvarArq);
