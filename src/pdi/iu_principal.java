@@ -5,7 +5,15 @@
  */
 package pdi;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -18,6 +26,8 @@ import javax.swing.JOptionPane;
  */
 public class iu_principal extends javax.swing.JFrame {
     
+    public BufferedImage imagem_ppm;
+    public BufferedImage imagem_pgm;
     int imagemCinza[][];
     rgb imagemRGB[][];
     int tamanho[];
@@ -39,7 +49,8 @@ public class iu_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imagem = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jLabel_imagem = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -59,7 +70,7 @@ public class iu_principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        imagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setViewportView(jLabel_imagem);
 
         jMenu1.setText("Arquivo");
 
@@ -148,39 +159,104 @@ public class iu_principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        JFileChooser fc = new JFileChooser();                           //escolhendo o arquivo
-        int result = fc.showOpenDialog(getParent());                    //;
-        String arquivo = fc.getSelectedFile().getAbsolutePath();        //
+        JFileChooser jfc = new JFileChooser();
+        int retorno = jfc.showOpenDialog(null);
+        if(retorno == JFileChooser.APPROVE_OPTION){
+            File aux = jfc.getSelectedFile();
 
-        ImageIcon img = new ImageIcon(arquivo);
-        imagem.setIcon(img);
-        
-        try {
-            //iniciando matriz em tom de cinza
-            tamanho = cinza.tamMatriz(arquivo);
-            this.imagemCinza =  cinza.lerCinza(arquivo,tamanho[0],tamanho[1]);
-            
-            //iniciando matriz RGB
-            this.imagemRGB = rgb.leituraRGB(arquivo, tamanho[0], tamanho[1]);
-        } catch (IOException ex) {
-            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            String a[] = aux.getAbsolutePath().split("\\.");
+
+            if("ppm".equals(a[a.length-1])){
+                try{    
+                    FileInputStream stream = new FileInputStream(aux.getAbsolutePath());
+                    InputStreamReader reader = new InputStreamReader(stream);
+                    BufferedReader br = new BufferedReader(reader);
+                    String medidas[];
+
+                    //Lendo cabeçalho
+                    String linha = br.readLine(); //Linha P2
+                    linha = br.readLine(); //Comentário
+                    linha = br.readLine(); //Tamanho - Largura - Altura
+                    
+                    medidas = linha.split(" ");
+                    int largura = Integer.parseInt(medidas[0]);
+                    int altura = Integer.parseInt(medidas[1]);
+
+                    br.readLine();  //lendo maior valor
+
+                    imagem_ppm = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
+                    int r,g,b,rgb;
+
+                    for(int i = 0; i < altura; i++)
+                        for(int j = 0; j < largura; j++){
+                            r = Integer.valueOf(br.readLine()); // lendo r
+                            g = Integer.valueOf(br.readLine()); // lendo g
+                            b = Integer.valueOf(br.readLine()); // lendo b
+
+                            Color myColor = new Color(r,g,b);
+                            rgb = myColor.getRGB();
+
+                            imagem_ppm.setRGB(j, i, rgb);
+                    }
+
+                    jScrollPane1.setSize(imagem_ppm.getWidth()+80, imagem_ppm.getHeight()+80);            
+                    setSize(imagem_ppm.getWidth()+80, imagem_ppm.getHeight()+110);        
+                    jLabel_imagem.setIcon(new ImageIcon(imagem_ppm));
+                    }   catch (FileNotFoundException ex) {
+                            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+            }else if("pgm".equals(a[a.length-1])){
+                try{
+                    FileInputStream stream = new FileInputStream(aux.getAbsolutePath());
+                    InputStreamReader reader = new InputStreamReader(stream);
+                    BufferedReader br = new BufferedReader(reader);
+                    String medidas[];
+                    
+                    //Lendo cabeçalho
+                    String linha = br.readLine(); //Linha P2
+                    linha = br.readLine(); //Comentário
+                    linha = br.readLine(); //Tamanho - Largura - Altura
+                    
+                    medidas = linha.split(" ");
+                    int largura = Integer.parseInt(medidas[0]);
+                    int altura = Integer.parseInt(medidas[1]);
+
+                    br.readLine();  //lendo maior valor
+
+                    imagem_pgm = new BufferedImage(largura, altura, BufferedImage.TYPE_BYTE_GRAY);
+                    WritableRaster raster = imagem_pgm.getRaster();
+                    int num;
+
+                    for(int i = 0; i < altura; i++)
+                        for(int j = 0; j < largura; j++){
+                            num = Integer.valueOf(br.readLine());
+                            raster.setSample(j, i, 0, num);
+                    }
+                    
+                    jScrollPane1.setSize(imagem_pgm.getWidth()+80, imagem_pgm.getHeight()+80);            
+                    setSize(imagem_pgm.getWidth()+80, imagem_pgm.getHeight()+110);        
+                    jLabel_imagem.setIcon(new ImageIcon(imagem_pgm));
+                }catch (FileNotFoundException ex) {
+                            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Extensão de arquivo inválida!");
+            }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -307,13 +383,14 @@ public class iu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem extrairCanalG;
     private javax.swing.JMenuItem extrairCanalR;
     private javax.swing.JMenuItem gerarHistograma;
-    private javax.swing.JLabel imagem;
+    private javax.swing.JLabel jLabel_imagem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem reduzCanalB;

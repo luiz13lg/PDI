@@ -32,16 +32,16 @@ public class PDI {
         int media;
         int tamFiltro;
         
-        String AbrirArq = "C:\\Users\\cc151255911\\Desktop\\placa_circuito.pgm";
+//        String AbrirArq = "C:\\Users\\cc151255911\\Desktop\\placa_circuito.pgm";
 //        C:\Users\cc151255911\Desktop\placa_circuito.pgm
-        String SalvarArq = "C:\\Users\\cc151255911\\Desktop\\resultado.pgm";
+//        String SalvarArq = "C:\\Users\\cc151255911\\Desktop\\resultado.pgm";
         
-        tam = cinza.tamMatriz(AbrirArq);
+//        tam = cinza.tamMatriz(AbrirArq);
+//        
+//        matriz = cinza.lerCinza(AbrirArq, tam[0], tam[1]);
+//        matrizResul = cinza.medianaFiltro(matriz, tam[0], tam[1]);
         
-        matriz = cinza.lerCinza(AbrirArq, tam[0], tam[1]);
-        matrizResul = cinza.medianaFiltro(matriz, tam[0], tam[1]);
-        
-        cinza.salvarMatriz(matrizResul,tam[0],tam[1], SalvarArq);;
+//        cinza.salvarMatriz(matrizResul,tam[0],tam[1], SalvarArq);
     }
 
     public static int[][] matTrans(int i, int j, int valor){   //inicia a matriz para operacao
