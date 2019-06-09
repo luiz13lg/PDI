@@ -73,8 +73,7 @@ public class cinza {
         
         return true;
     }
-    
-        
+         
     public static int[][] girarNovGraus(int matriz[][], int i, int j){
         int giro[][] = new int[j][i];
         
@@ -239,11 +238,12 @@ public class cinza {
     }
 
     public static int[][] filtroLaplaciano(int matriz[][], int i, int j){
-        int imagem[][] = matriz;
+        int imagem[][] = new int[i][j];
         
         for(int auxL = 1; auxL < i-1; auxL++)
-            for(int auxC = 1; auxC < j-1; auxC++)
-                imagem[auxL][auxC] = imagem[auxL+1][auxC] + imagem[auxL-1][auxC]+imagem[auxL][auxC+1]+imagem[auxL][auxC-1]-4*imagem[auxL][auxC];
+            for(int auxC = 1; auxC < j-1; auxC++){
+                imagem[auxL][auxC] = matriz[auxL+1][auxC] + matriz[auxL-1][auxC]+matriz[auxL][auxC+1]+matriz[auxL][auxC-1]-4*matriz[auxL][auxC];
+            }
         
         return imagem;
     }

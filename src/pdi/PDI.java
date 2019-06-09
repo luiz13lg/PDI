@@ -31,7 +31,7 @@ public class PDI {
         int histograma[];
         int media;
         int tamFiltro;
-        
+
 //        String AbrirArq = "C:\\Users\\cc151255911\\Desktop\\placa_circuito.pgm";
 //        C:\Users\cc151255911\Desktop\placa_circuito.pgm
 //        String SalvarArq = "C:\\Users\\cc151255911\\Desktop\\resultado.pgm";
