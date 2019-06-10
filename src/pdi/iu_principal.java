@@ -64,7 +64,7 @@ public class iu_principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         abrirImagem_ = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        salvar_ = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         restaurar_ = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -77,8 +77,9 @@ public class iu_principal extends javax.swing.JFrame {
         extrairCanalB = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
-        gerarHistograma = new javax.swing.JMenuItem();
+        gerarHistograma_ = new javax.swing.JMenuItem();
         media_ = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         girar90_ = new javax.swing.JMenuItem();
         binarizar_ = new javax.swing.JMenuItem();
         zoomIn_ = new javax.swing.JMenuItem();
@@ -100,13 +101,13 @@ public class iu_principal extends javax.swing.JFrame {
         });
         jMenu1.add(abrirImagem_);
 
-        jMenuItem3.setText("Salvar");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        salvar_.setText("Salvar");
+        salvar_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                salvar_ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(salvar_);
         jMenu1.add(jSeparator3);
 
         restaurar_.setText("Restaurar Imagem");
@@ -175,13 +176,13 @@ public class iu_principal extends javax.swing.JFrame {
 
         jMenu3.setText("Cinza");
 
-        gerarHistograma.setText("Gerar Histograma");
-        gerarHistograma.addActionListener(new java.awt.event.ActionListener() {
+        gerarHistograma_.setText("Gerar Histograma");
+        gerarHistograma_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gerarHistogramaActionPerformed(evt);
+                gerarHistograma_ActionPerformed(evt);
             }
         });
-        jMenu3.add(gerarHistograma);
+        jMenu3.add(gerarHistograma_);
 
         media_.setText("Média (3x3, 5x5, ...)");
         media_.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +191,14 @@ public class iu_principal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(media_);
+
+        jMenuItem1.setText("Mediana (3x3, 5x5, ...)");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
 
         girar90_.setText("Girar 90º");
         girar90_.addActionListener(new java.awt.event.ActionListener() {
@@ -346,13 +355,22 @@ public class iu_principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_abrirImagem_ActionPerformed
 
-    private void gerarHistogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarHistogramaActionPerformed
+    private void gerarHistograma_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarHistograma_ActionPerformed
+        int hist[] = cinza.histograma(matrizCinzaNova, alturaNova, larguraNova);
+        
+        JFileChooser salvandoArquivo = new JFileChooser();
+        int resultado = salvandoArquivo.showSaveDialog(this);
+        
+        if (resultado != JFileChooser.APPROVE_OPTION) return;
+        
+        File salvarArquivoEscolhido = salvandoArquivo.getSelectedFile();
+        
         try {
-            PDI.salvarHistograma(PDI.histograma(imagemCinza,tamanho[0],tamanho[1]),"E:\\histograma.txt");
+            cinza.salvarHistograma(hist, salvarArquivoEscolhido.getPath());
         } catch (IOException ex) {
             Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_gerarHistogramaActionPerformed
+    }//GEN-LAST:event_gerarHistograma_ActionPerformed
 
     private void reduzCanalRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reduzCanalRActionPerformed
         rgb rgbAuxiliar[][];
@@ -488,9 +506,26 @@ public class iu_principal extends javax.swing.JFrame {
         jLabel_imagem.setIcon(new ImageIcon(imagem_pgm));
     }
     
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void salvar_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar_ActionPerformed
+        if(pgmPPM){ //salvando imagem ppm
+            
+        }else{      //salvando imagem pgm
+            JFileChooser salvandoArquivo = new JFileChooser();
+            int resultado = salvandoArquivo.showSaveDialog(this);
+
+            if (resultado != JFileChooser.APPROVE_OPTION) return;
+
+            File salvarArquivoEscolhido = salvandoArquivo.getSelectedFile();
+            File salvarArquivo = new File(salvarArquivoEscolhido.getPath()+".pgm");
+
+            try {
+                cinza.salvarMatriz(matrizCinzaNova, alturaNova, larguraNova, salvarArquivo.getPath());
+                
+            } catch (IOException ex) {
+                Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_salvar_ActionPerformed
 
     private void laplaciano_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laplaciano_ActionPerformed
         matrizCinzaNova = cinza.filtroLaplaciano(matrizCinzaNova, alturaNova, larguraNova);
@@ -533,6 +568,13 @@ public class iu_principal extends javax.swing.JFrame {
         exibirImagemCinza(matrizCinzaNova);
     }//GEN-LAST:event_media_ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o tamanho do filtro (YxY):"));
+ 
+        matrizCinzaNova = cinza.filtroMediana(matrizCinzaNova.clone(), alturaNova, larguraNova, valor);
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -574,14 +616,14 @@ public class iu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem extrairCanalB;
     private javax.swing.JMenuItem extrairCanalG;
     private javax.swing.JMenuItem extrairCanalR;
-    private javax.swing.JMenuItem gerarHistograma;
+    private javax.swing.JMenuItem gerarHistograma_;
     private javax.swing.JMenuItem girar90_;
     private javax.swing.JLabel jLabel_imagem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -592,6 +634,7 @@ public class iu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem reduzCanalG;
     private javax.swing.JMenuItem reduzCanalR;
     private javax.swing.JMenuItem restaurar_;
+    private javax.swing.JMenuItem salvar_;
     private javax.swing.JMenuItem zommOut_;
     private javax.swing.JMenuItem zoomIn_;
     // End of variables declaration//GEN-END:variables

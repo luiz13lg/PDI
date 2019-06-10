@@ -55,27 +55,5 @@ public class PDI {
         return matriz;
     }
     
-    public static boolean salvarHistograma(int[] histograma, String SalvarHistograma) throws FileNotFoundException, IOException{
-        OutputStream salvar = new FileOutputStream(SalvarHistograma);
-        
-        byte[] salvando;
-        for(int aux = 0; aux < histograma.length; aux++){
-            salvando =  String.valueOf(histograma[aux]+" \n").getBytes();            
-            salvar.write(salvando);
-        }
-        
-        salvar.close();
-        return true;
-    }
-
-    public static int[] histograma(int matriz[][], int i, int j){
-        int histograma[] = new int[255];
-        
-        for(int auxL = 0, aL = 0; auxL < i; auxL=auxL+2, aL++)
-                for(int auxC = 0, aC = 0; auxC < j; auxC=auxC+2, aC++)
-                    histograma[matriz[auxL][auxC]]++;
-        
-        return histograma;
-    }
 
 }

@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -32,7 +34,7 @@ public class cinza {
         
         return matriz;
     }
-    
+   
         
     public static int[] tamMatriz(String localArq) throws FileNotFoundException, IOException{
         int tam[] = new int[2];
@@ -194,8 +196,7 @@ public class cinza {
                     else imagem[auxL][auxC] = (int) (a*matriz[auxL][auxC]+b);
             }
         return imagem;
-    }
-    
+    }  
         
     public static int[][] filtro(int matriz[][], int i, int j, int tamFiltro){
         int imagem[][] = clonar(matriz, i, j);
@@ -225,6 +226,28 @@ public class cinza {
                 matriz[l][c] = 1;
         
         return matriz;
+    }
+
+    public static int[][] filtroMediana(int matriz[][], int i, int j, int tamanho){
+        int imagem[][] = clonar(matriz, i, j);
+        ArrayList <Integer> aux = new ArrayList<>();
+        
+        int auxTamFiltro = tamanho/2;
+
+        int auxI = i-auxTamFiltro;
+        int auxJ = j-auxTamFiltro;
+        
+        for(int auxL = auxTamFiltro; auxL < auxI; auxL++)           //iterando sob a imagem
+            for(int auxC = auxTamFiltro; auxC < auxJ; auxC++){
+                for(int filtroL = 0; filtroL < tamanho; filtroL++) //iterando sob o filtro
+                    for(int filtroC = 0; filtroC < tamanho; filtroC++)
+                        aux.add(matriz[auxL+filtroL-auxTamFiltro][auxC+filtroC-auxTamFiltro]);
+                Collections.sort(aux);
+                imagem[auxL][auxC] = aux.get(auxTamFiltro);  //dividindo pela media
+                aux.clear();
+            }
+        
+        return imagem;
     }
     
 //    public static int mediaFiltro(int[][] matriz, int tamFiltro){
@@ -299,5 +322,26 @@ public class cinza {
             System.arraycopy(matriz[auxL], 0, retorno[auxL], 0, j);
         
         return retorno;
+    }
+    
+    public static int[] histograma(int matriz[][], int i, int j){
+        int histograma[] = new int[255];
+        
+        for(int auxL = 0, aL = 0; auxL < i; auxL=auxL+2, aL++)
+                for(int auxC = 0, aC = 0; auxC < j; auxC=auxC+2, aC++)
+                    histograma[matriz[auxL][auxC]]++;
+        
+        return histograma;
+    }
+    
+    public static boolean salvarHistograma(int[] histograma, String SalvarHistograma) throws FileNotFoundException, IOException{
+        try (OutputStream salvar = new FileOutputStream(SalvarHistograma)) {
+            byte[] salvando;
+            for(int aux = 0; aux < histograma.length; aux++){
+                salvando =  String.valueOf(histograma[aux]+" \n").getBytes();
+                salvar.write(salvando);
+            }
+        }
+        return true;
     }
 }
