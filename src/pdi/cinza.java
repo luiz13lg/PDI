@@ -197,21 +197,21 @@ public class cinza {
     }
     
         
-    public static int[][] filtro(int matriz[][], int i, int j, int filtro[][], int tamFiltro){
+    public static int[][] filtro(int matriz[][], int i, int j, int tamFiltro){
         int imagem[][] = matriz;
         int auxSoma = 0;
         int auxTamFiltro = tamFiltro/2;
-        int media = mediaFiltro(matriz, tamFiltro);
-        
+        int media = tamFiltro*tamFiltro;
+                
         int auxI = i-auxTamFiltro;
         int auxJ = j-auxTamFiltro;
         
-        for(int auxL = auxTamFiltro; auxL < auxI; auxL++)
+        for(int auxL = auxTamFiltro; auxL < auxI; auxL++)           //iterando sob a imagem
             for(int auxC = auxTamFiltro; auxC < auxJ; auxC++){
-                for(int filtroL = 0; filtroL < tamFiltro; filtroL++)
+                for(int filtroL = 0; filtroL < tamFiltro; filtroL++) //iterando sob o filtro
                     for(int filtroC = 0; filtroC < tamFiltro; filtroC++)
-                        auxSoma += matriz[auxL+filtroL-auxTamFiltro][auxC+filtroC-auxTamFiltro]*filtro[filtroL][filtroC];
-                imagem[auxL][auxC] = (int)(auxSoma/media);
+                        auxSoma += matriz[auxL+filtroL-auxTamFiltro][auxC+filtroC-auxTamFiltro];    //soma dos valores dentro do filtro
+                imagem[auxL][auxC] = (int)(auxSoma/media);  //dividindo pela media
                 auxSoma = 0;
             }
         return imagem;
@@ -227,15 +227,15 @@ public class cinza {
         return matriz;
     }
     
-    public static int mediaFiltro(int[][] matriz, int tamFiltro){
-        int media = 0;
-        
-        for(int l = 0; l < tamFiltro; l++)
-            for(int c = 0; c < tamFiltro; c++)
-                media += matriz[l][c];
-        
-        return media;
-    }
+//    public static int mediaFiltro(int[][] matriz, int tamFiltro){
+//        int media = 0;
+//        
+//        for(int l = 0; l < tamFiltro; l++)
+//            for(int c = 0; c < tamFiltro; c++)
+//                media += matriz[l][c];
+//        
+//        return media;
+//    }
 
     public static int[][] filtroLaplaciano(int matriz[][], int i, int j){
         int imagem[][] = new int[i][j];

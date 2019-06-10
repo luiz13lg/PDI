@@ -9,12 +9,12 @@
             <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="abrirImagem_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abrirImagem_ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
@@ -27,12 +27,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="restaurar_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Restaurar Imagem"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="restaurar_ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -109,40 +109,52 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gerarHistogramaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="media_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="M&#xe9;dia (3x3, 5x5, ...)"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="media_ActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="girar90_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Girar 90&#xba;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="girar90_ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+            <MenuItem class="javax.swing.JMenuItem" name="binarizar_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Binarizar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="binarizar_ActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+            <MenuItem class="javax.swing.JMenuItem" name="zoomIn_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zoom In"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zoomIn_ActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+            <MenuItem class="javax.swing.JMenuItem" name="zommOut_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zoom Out"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zommOut_ActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+            <MenuItem class="javax.swing.JMenuItem" name="laplaciano_">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Laplaciano"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem9ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="laplaciano_ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
