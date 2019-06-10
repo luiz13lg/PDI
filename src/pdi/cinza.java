@@ -198,7 +198,7 @@ public class cinza {
     
         
     public static int[][] filtro(int matriz[][], int i, int j, int tamFiltro){
-        int imagem[][] = matriz;
+        int imagem[][] = clonar(matriz, i, j);
         int auxSoma = 0;
         int auxTamFiltro = tamFiltro/2;
         int media = tamFiltro*tamFiltro;
@@ -292,4 +292,12 @@ public class cinza {
         return m;
     }
     
+    private static int[][] clonar(int matriz[][], int i, int j){
+        int retorno[][] = new int[i][j];
+        
+        for(int auxL = 0; auxL < i; auxL++)
+            System.arraycopy(matriz[auxL], 0, retorno[auxL], 0, j);
+        
+        return retorno;
+    }
 }

@@ -529,7 +529,7 @@ public class iu_principal extends javax.swing.JFrame {
     private void media_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_media_ActionPerformed
         int valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o tamanho do filtro (YxY):"));
  
-        matrizCinzaNova = cinza.filtro(matrizCinzaNova, alturaNova, larguraNova, valor);
+        matrizCinzaNova = cinza.filtro(matrizCinzaNova.clone(), alturaNova, larguraNova, valor);
         exibirImagemCinza(matrizCinzaNova);
     }//GEN-LAST:event_media_ActionPerformed
 
