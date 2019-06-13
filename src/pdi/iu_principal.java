@@ -79,12 +79,18 @@ public class iu_principal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         gerarHistograma_ = new javax.swing.JMenuItem();
         media_ = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mediana_ = new javax.swing.JMenuItem();
         girar90_ = new javax.swing.JMenuItem();
         binarizar_ = new javax.swing.JMenuItem();
         zoomIn_ = new javax.swing.JMenuItem();
         zommOut_ = new javax.swing.JMenuItem();
         laplaciano_ = new javax.swing.JMenuItem();
+        clarear_ = new javax.swing.JMenuItem();
+        escurecer_ = new javax.swing.JMenuItem();
+        negativo_ = new javax.swing.JMenuItem();
+        subOriginal_ = new javax.swing.JMenuItem();
+        somarOriginal_ = new javax.swing.JMenuItem();
+        highboost_ = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -192,13 +198,13 @@ public class iu_principal extends javax.swing.JFrame {
         });
         jMenu3.add(media_);
 
-        jMenuItem1.setText("Mediana (3x3, 5x5, ...)");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mediana_.setText("Mediana (3x3, 5x5, ...)");
+        mediana_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mediana_ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu3.add(mediana_);
 
         girar90_.setText("Girar 90º");
         girar90_.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +246,54 @@ public class iu_principal extends javax.swing.JFrame {
         });
         jMenu3.add(laplaciano_);
 
+        clarear_.setText("Clarear (soma)");
+        clarear_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clarear_ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(clarear_);
+
+        escurecer_.setText("Escurecer (subtrair)");
+        escurecer_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                escurecer_ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(escurecer_);
+
+        negativo_.setText("Negativo");
+        negativo_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                negativo_ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(negativo_);
+
+        subOriginal_.setText("Subtrair da Original");
+        subOriginal_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subOriginal_ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(subOriginal_);
+
+        somarOriginal_.setText("Somar à Original");
+        somarOriginal_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                somarOriginal_ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(somarOriginal_);
+
+        highboost_.setText("Highboost");
+        highboost_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                highboost_ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(highboost_);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -278,7 +332,7 @@ public class iu_principal extends javax.swing.JFrame {
                     String linha = br.readLine(); //Linha P2
                     linha = br.readLine(); //Comentário
                     linha = br.readLine(); //Tamanho - Largura - Altura
-                    
+
                     medidas = linha.split(" ");
                     larguraNova = largura = Integer.parseInt(medidas[0]);
                     alturaNova = altura = Integer.parseInt(medidas[1]);
@@ -286,7 +340,7 @@ public class iu_principal extends javax.swing.JFrame {
                     br.readLine();  //lendo maior valor
                     matrizRGB = rgb.leituraRGB(aux.getAbsolutePath(), altura, largura);
                     matrizRGBNova = matrizRGB.clone();
-                    
+
                     imagem_ppm = new BufferedImage(largura, altura, BufferedImage.TYPE_INT_RGB);
                     int r,g,b,rgb;
 
@@ -325,7 +379,6 @@ public class iu_principal extends javax.swing.JFrame {
                     medidas = linha.split(" ");
                     larguraNova = largura = Integer.parseInt(medidas[0]);
                     alturaNova = altura = Integer.parseInt(medidas[1]);
-                    
 
                     br.readLine();  //lendo maior valor
                     matrizCinza = cinza.lerCinza(aux.getAbsolutePath(), altura, largura);
@@ -386,7 +439,7 @@ public class iu_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_reduzCanalRActionPerformed
 
     private void reduzCanalGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reduzCanalGActionPerformed
-                rgb rgbAuxiliar[][];
+        rgb rgbAuxiliar[][];
         int valor = Integer.valueOf(JOptionPane.showInputDialog("Insira o valor a ser reduzido"));
         
         rgbAuxiliar = rgb.reduzirCanalG(imagemRGB, tamanho[0], tamanho[1], valor);
@@ -568,12 +621,63 @@ public class iu_principal extends javax.swing.JFrame {
         exibirImagemCinza(matrizCinzaNova);
     }//GEN-LAST:event_media_ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mediana_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediana_ActionPerformed
         int valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o tamanho do filtro (YxY):"));
  
         matrizCinzaNova = cinza.filtroMediana(matrizCinzaNova.clone(), alturaNova, larguraNova, valor);
         exibirImagemCinza(matrizCinzaNova);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mediana_ActionPerformed
+
+    private void clarear_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clarear_ActionPerformed
+        int valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o valor a ser subtraido:"));
+        
+        while(valor < 0)
+            valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira a ser incrementado:"));
+        
+        matrizCinzaNova = cinza.somarValorMatriz(matrizCinzaNova, alturaNova, larguraNova, valor);
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_clarear_ActionPerformed
+
+    private void escurecer_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escurecer_ActionPerformed
+        int valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o tamanho do filtro (YxY):"));
+        
+        while(valor < 0)
+            valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o valor a ser subtraido:"));
+        
+        matrizCinzaNova = cinza.subValorMatriz(matrizCinzaNova, alturaNova, larguraNova, valor);
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_escurecer_ActionPerformed
+
+    private void negativo_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_negativo_ActionPerformed
+        matrizCinzaNova = cinza.negativo(matrizCinzaNova, altura, largura);
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_negativo_ActionPerformed
+
+    private void subOriginal_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subOriginal_ActionPerformed
+        matrizCinzaNova = cinza.subMatriz(matrizCinza, matrizCinzaNova, alturaNova, larguraNova);
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_subOriginal_ActionPerformed
+
+    private void somarOriginal_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_somarOriginal_ActionPerformed
+        matrizCinzaNova = cinza.somarMatriz(matrizCinza, matrizCinzaNova, alturaNova, larguraNova);
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_somarOriginal_ActionPerformed
+
+    private void highboost_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_highboost_ActionPerformed
+        //passa baixa
+            int valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o tamanho do filtro da média (YxY):"));
+            matrizCinzaNova = cinza.filtro(matrizCinzaNova.clone(), alturaNova, larguraNova, valor);
+
+        matrizCinzaNova = cinza.subMatriz(matrizCinza, matrizCinzaNova, alturaNova, larguraNova);
+
+        valor = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Insira o limiar:"));
+
+        matrizCinzaNova = cinza.somarPerMatriz(matrizCinza, alturaNova, larguraNova, valor);
+
+        matrizCinzaNova = cinza.somarMatriz(matrizCinza, matrizCinzaNova, alturaNova, larguraNova);
+        
+        exibirImagemCinza(matrizCinzaNova);
+    }//GEN-LAST:event_highboost_ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -613,28 +717,34 @@ public class iu_principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirImagem_;
     private javax.swing.JMenuItem binarizar_;
+    private javax.swing.JMenuItem clarear_;
+    private javax.swing.JMenuItem escurecer_;
     private javax.swing.JMenuItem extrairCanalB;
     private javax.swing.JMenuItem extrairCanalG;
     private javax.swing.JMenuItem extrairCanalR;
     private javax.swing.JMenuItem gerarHistograma_;
     private javax.swing.JMenuItem girar90_;
+    private javax.swing.JMenuItem highboost_;
     private javax.swing.JLabel jLabel_imagem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenuItem laplaciano_;
     private javax.swing.JMenuItem media_;
+    private javax.swing.JMenuItem mediana_;
+    private javax.swing.JMenuItem negativo_;
     private javax.swing.JMenuItem reduzCanalB;
     private javax.swing.JMenuItem reduzCanalG;
     private javax.swing.JMenuItem reduzCanalR;
     private javax.swing.JMenuItem restaurar_;
     private javax.swing.JMenuItem salvar_;
+    private javax.swing.JMenuItem somarOriginal_;
+    private javax.swing.JMenuItem subOriginal_;
     private javax.swing.JMenuItem zommOut_;
     private javax.swing.JMenuItem zoomIn_;
     // End of variables declaration//GEN-END:variables

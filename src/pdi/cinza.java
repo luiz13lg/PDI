@@ -249,24 +249,23 @@ public class cinza {
         
         return imagem;
     }
-    
-//    public static int mediaFiltro(int[][] matriz, int tamFiltro){
-//        int media = 0;
-//        
-//        for(int l = 0; l < tamFiltro; l++)
-//            for(int c = 0; c < tamFiltro; c++)
-//                media += matriz[l][c];
-//        
-//        return media;
-//    }
 
     public static int[][] filtroLaplaciano(int matriz[][], int i, int j){
         int imagem[][] = new int[i][j];
         
         for(int auxL = 1; auxL < i-1; auxL++)
-            for(int auxC = 1; auxC < j-1; auxC++){
+            for(int auxC = 1; auxC < j-1; auxC++)
                 imagem[auxL][auxC] = matriz[auxL+1][auxC] + matriz[auxL-1][auxC]+matriz[auxL][auxC+1]+matriz[auxL][auxC-1]-4*matriz[auxL][auxC];
-            }
+        
+        return imagem;
+    }
+    
+    public static int[][] negativo(int matriz[][], int i, int j){
+        int imagem[][] = new int[i][j];
+        
+        for(int auxL = 0; auxL < i; auxL++)
+            for(int auxC = 0; auxC < j; auxC++)
+                imagem[auxL][auxC] = 255 - matriz[auxL][auxC];
         
         return imagem;
     }
@@ -282,14 +281,43 @@ public class cinza {
         return mR;
     }
     
+    public static int[][] somarValorMatriz(int m1[][], int i, int j, int valor){
+        int mR[][] = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++)
+                if((m1[aL][aC] + valor) > 255) mR[aL][aC] = 255;
+                    else mR[aL][aC] = (int)(m1[aL][aC] + valor);
+        return mR;
+    }
+    
+    public static int[][] subValorMatriz(int m1[][], int i, int j, int valor){
+        int mR[][] = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++)
+                if((m1[aL][aC] - valor) < 0) mR[aL][aC] = 0;
+                    else mR[aL][aC] = (int)(m1[aL][aC] - valor);
+        return mR;
+    }
+    
     public static int[][] somarMatriz(int m1[][], int m2[][],int i,int j){
         int mR[][] = new int[i][j];
         
         for(int aL = 0; aL < i; aL++)
             for(int aC = 0; aC < j; aC++)
                 if(m1[aL][aC] + m2[aL][aC] > 255) mR[aL][aC] = 255;
-                    else if (m1[aL][aC] + m2[aL][aC] < 0) mR[aL][aC] = 0;
                     else mR[aL][aC] = m1[aL][aC] + m2[aL][aC];
+        return mR;
+    }
+
+    public static int[][] subMatriz(int m1[][], int m2[][],int i,int j){
+        int mR[][] = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++)
+                if(m1[aL][aC] - m2[aL][aC] < 0) mR[aL][aC] = 0;
+                    else mR[aL][aC] = m1[aL][aC] - m2[aL][aC];
         return mR;
     }
     
