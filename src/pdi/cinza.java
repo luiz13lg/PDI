@@ -232,10 +232,12 @@ public class cinza {
         int imagem[][] = clonar(matriz, i, j);
         ArrayList <Integer> aux = new ArrayList<>();
         
-        int auxTamFiltro = tamanho/2;
 
-        int auxI = i-auxTamFiltro;
-        int auxJ = j-auxTamFiltro;
+        int valorCentral = (tamanho*tamanho)/2; //para pegar o valor central do array
+        
+        int auxTamFiltro = tamanho/2;           //para trabalhar com as bordas
+        int auxI = i-auxTamFiltro;              //até onde posso ir da altura
+        int auxJ = j-auxTamFiltro;              //até onde posso ir da largura
         
         for(int auxL = auxTamFiltro; auxL < auxI; auxL++)           //iterando sob a imagem
             for(int auxC = auxTamFiltro; auxC < auxJ; auxC++){
@@ -243,7 +245,7 @@ public class cinza {
                     for(int filtroC = 0; filtroC < tamanho; filtroC++)
                         aux.add(matriz[auxL+filtroL-auxTamFiltro][auxC+filtroC-auxTamFiltro]);
                 Collections.sort(aux);
-                imagem[auxL][auxC] = aux.get(auxTamFiltro);  //dividindo pela media
+                imagem[auxL][auxC] = aux.get(valorCentral);  //pegando valor central do array
                 aux.clear();
             }
         
