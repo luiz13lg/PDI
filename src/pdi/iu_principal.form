@@ -37,7 +37,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="menuRGB_">
           <Properties>
             <Property name="text" type="java.lang.String" value="RGB"/>
           </Properties>
@@ -96,7 +96,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="menuCinza_">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cinza"/>
           </Properties>
@@ -107,6 +107,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gerarHistograma_ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="equalizacaoGlobal_">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Equaliza&#xe7;&#xe3;o Global"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="equalizacaoGlobal_ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="media_">
@@ -211,6 +219,22 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="highboost_ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="nitidez_">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="M&#xe1;scara de Nitidez"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nitidez_ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="gama_">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Corre&#xe7;&#xe3;o Gama"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gama_ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

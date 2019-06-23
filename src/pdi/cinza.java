@@ -23,10 +23,14 @@ public class cinza {
     public static int[][] lerCinza(String localArq, int l, int c) throws FileNotFoundException, IOException{
         BufferedReader br = new BufferedReader(new FileReader(localArq));
         int matriz[][] = new int[l][c];
-        String valoresLinha = null;
         
-        for(int aux = 0; aux < 4; aux++)
-            valoresLinha = br.readLine();
+        br.readLine(); //Linha P2
+        String linha = br.readLine(); //Possível comentário
+
+        if(linha.charAt(0) == '#') //Se comentário
+            br.readLine(); // Lê: Largura - Altura
+        
+        br.readLine(); //maior valor
         
         for(int aL = 0; aL < l; aL++)
             for(int aC = 0; aC < c; aC++)
@@ -257,7 +261,7 @@ public class cinza {
         
         for(int auxL = 1; auxL < i-1; auxL++)
             for(int auxC = 1; auxC < j-1; auxC++)
-                imagem[auxL][auxC] = matriz[auxL+1][auxC] + matriz[auxL-1][auxC]+matriz[auxL][auxC+1]+matriz[auxL][auxC-1]-4*matriz[auxL][auxC];
+                imagem[auxL][auxC] = -1*(matriz[auxL][auxC+1] + matriz[auxL][auxC-1] + matriz[auxL+1][auxC] + matriz[auxL-1][auxC] - 4*matriz[auxL][auxC]);   //central
         
         return imagem;
     }
@@ -308,7 +312,19 @@ public class cinza {
         
         for(int aL = 0; aL < i; aL++)
             for(int aC = 0; aC < j; aC++)
-                if(m1[aL][aC] + m2[aL][aC] > 255) mR[aL][aC] = 255;
+                if(m1[aL][aC] + m2[aL][aC] >= 255) mR[aL][aC] = m1[aL][aC];
+                else if(m1[aL][aC] + m2[aL][aC] <= 0) mR[aL][aC] = m1[aL][aC];
+                    else mR[aL][aC] = m1[aL][aC] + m2[aL][aC];
+        return mR;
+    }
+
+    public static int[][] somar(int m1[][], int m2[][],int i,int j){
+        int mR[][] = new int[i][j];
+        
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++)
+                if(m1[aL][aC] + m2[aL][aC] >= 255) mR[aL][aC] = 255;
+                else if(m1[aL][aC] + m2[aL][aC] <= 0) mR[aL][aC] = 0;
                     else mR[aL][aC] = m1[aL][aC] + m2[aL][aC];
         return mR;
     }
@@ -373,5 +389,28 @@ public class cinza {
             }
         }
         return true;
+    }
+    
+    public static int[][] equalizacaoGlobal(int[][] matriz, int i, int j){
+        int[][] imagem = new int[i][j];
+        float[] histograma = new float[256];
+        float pAcumulada = 0;
+        
+//        obtendo histograma
+        for(int auxL = 0; auxL < i; auxL++)
+            for(int auxC = 0; auxC < j; auxC++)
+                histograma[matriz[auxL][auxC]]++;
+        
+        for(int aux = 0; aux < 256; aux++){
+            histograma[aux] = histograma[aux]/(i*j);
+            pAcumulada += histograma[aux];
+            histograma[aux] = pAcumulada*254;
+        }
+        
+        for(int auxL = 0; auxL < i; auxL++)
+            for(int auxC = 0; auxC < j; auxC++)
+                imagem[auxL][auxC] = (int) histograma[matriz[auxL][auxC]];
+        
+        return imagem;
     }
 }

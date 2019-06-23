@@ -63,11 +63,14 @@ public class rgb {
     public static rgb[][] leituraRGB(String localArq, int i, int j) throws FileNotFoundException, IOException{
         BufferedReader br = new BufferedReader(new FileReader(localArq));
         rgb m[][] = new rgb[i][j];
-        Scanner s = new Scanner(System.in);
-        String valoresLinha = null;
         
-        for(int aux = 0; aux < 4; aux++)
-            valoresLinha = br.readLine();
+        br.readLine(); //Linha do tipo
+        String linha = br.readLine(); //Possível comentário
+
+        if(linha.charAt(0) == '#') //Se comentário
+            br.readLine(); // Lê: Largura - Altura
+        
+        br.readLine(); //maior valor
         
         for(int aL = 0; aL < i; aL++)
             for(int aC = 0; aC < j; aC++){
@@ -131,9 +134,10 @@ public class rgb {
         rgb imagem[][] = matriz;
         
         for(int aL = 0; aL < i; aL++)
-            for(int aC = 0; aC < j; aC++){
-                imagem[aL][aC].setR(matriz[aL][aC].getR() - valor);
-            }
+            for(int aC = 0; aC < j; aC++)
+                if(matriz[aL][aC].getR()-valor < 0) matriz[aL][aC].setR(0);
+                else if(matriz[aL][aC].getR()-valor > 255) matriz[aL][aC].setR(255);
+                else imagem[aL][aC].setR(matriz[aL][aC].getR() - valor);
         
         return imagem;
     }
@@ -142,9 +146,10 @@ public class rgb {
         rgb imagem[][] = matriz;
         
         for(int aL = 0; aL < i; aL++)
-            for(int aC = 0; aC < j; aC++){
-                imagem[aL][aC].setG(matriz[aL][aC].getG() - valor);
-            }
+            for(int aC = 0; aC < j; aC++)
+                if(matriz[aL][aC].getG()-valor < 0) matriz[aL][aC].setG(0);
+                else if(matriz[aL][aC].getG()-valor > 255) matriz[aL][aC].setG(255);
+                else imagem[aL][aC].setG(matriz[aL][aC].getG() - valor);
         
         return imagem;
     }
@@ -153,9 +158,10 @@ public class rgb {
         rgb imagem[][] = matriz;
         
         for(int aL = 0; aL < i; aL++)
-            for(int aC = 0; aC < j; aC++){
-                imagem[aL][aC].setB(matriz[aL][aC].getB() - valor);
-            }
+            for(int aC = 0; aC < j; aC++)
+                if(matriz[aL][aC].getB()-valor < 0) matriz[aL][aC].setB(0);
+                else if(matriz[aL][aC].getB()-valor > 255) matriz[aL][aC].setB(255);
+                else imagem[aL][aC].setB(matriz[aL][aC].getB() - valor);
         
         return imagem;
     }
