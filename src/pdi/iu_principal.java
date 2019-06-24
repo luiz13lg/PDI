@@ -78,6 +78,8 @@ public class iu_principal extends javax.swing.JFrame {
         extrairCanalR = new javax.swing.JMenuItem();
         extrairCanalG = new javax.swing.JMenuItem();
         extrairCanalB = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        inverterCanais_ = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuCinza_ = new javax.swing.JMenu();
         gerarHistograma_ = new javax.swing.JMenuItem();
@@ -182,6 +184,15 @@ public class iu_principal extends javax.swing.JFrame {
             }
         });
         menuRGB_.add(extrairCanalB);
+        menuRGB_.add(jSeparator4);
+
+        inverterCanais_.setText("Inverter Canais");
+        inverterCanais_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inverterCanais_ActionPerformed(evt);
+            }
+        });
+        menuRGB_.add(inverterCanais_);
         menuRGB_.add(jSeparator2);
 
         jMenuBar1.add(menuRGB_);
@@ -719,6 +730,38 @@ public class iu_principal extends javax.swing.JFrame {
         exibirImagemCinza(matrizCinzaNova);
     }//GEN-LAST:event_equalizacaoGlobal_ActionPerformed
 
+    private void inverterCanais_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inverterCanais_ActionPerformed
+        String[] opcoes = {"RBG","BRG","BGR","GRB","GBR"};
+        
+        String input = (String) JOptionPane.showInputDialog(null, "Escolha a inversão desejada",
+        "Escolhendo Inversão", JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]); 
+        
+        switch(input){
+            case "RBG":
+                matrizRGBNova = rgb.setRBG(matrizRGBNova, alturaNova, larguraNova);
+                System.out.println("RBG");
+                break;
+            case "BRG":
+                matrizRGBNova = rgb.setBRG(matrizRGBNova, alturaNova, larguraNova);
+                System.out.println("BRG");                
+                break;
+            case "BGR":
+                matrizRGBNova = rgb.setBGR(matrizRGBNova, alturaNova, larguraNova);
+                System.out.println("BGR");                
+                break;
+            case "GRB":
+                matrizRGBNova = rgb.setGRB(matrizRGBNova, alturaNova, larguraNova);
+                System.out.println("GRB");                
+                break;
+            case "GBR":
+                matrizRGBNova = rgb.setGBR(matrizRGBNova, alturaNova, larguraNova);
+                System.out.println("GBR");                
+                break;
+        }
+        
+        exibirImagemRGB(matrizRGBNova);
+    }//GEN-LAST:event_inverterCanais_ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -767,6 +810,7 @@ public class iu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem gerarHistograma_;
     private javax.swing.JMenuItem girar90_;
     private javax.swing.JMenuItem highboost_;
+    private javax.swing.JMenuItem inverterCanais_;
     private javax.swing.JLabel jLabel_imagem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -774,6 +818,7 @@ public class iu_principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JMenuItem laplaciano_;
     private javax.swing.JMenuItem media_;
     private javax.swing.JMenuItem mediana_;

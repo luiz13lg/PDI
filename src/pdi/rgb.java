@@ -199,4 +199,99 @@ public class rgb {
         return imagem;
     }
     
+    public static rgb[][] setRBG(rgb matriz[][], int i, int j){
+        rgb imagem[][] = new rgb[i][j];
+        
+        int r[][] = extrairCanalR(matriz,i,j);
+        int g[][] = extrairCanalG(matriz,i,j);
+        int b[][] = extrairCanalB(matriz,i,j);
+         
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = new rgb();
+                
+                imagem[aL][aC].r = r[aL][aC];
+                imagem[aL][aC].g = b[aL][aC];
+                imagem[aL][aC].b = g[aL][aC];
+            }
+        
+        return imagem;
+    }
+    
+    public static rgb[][] setBGR(rgb matriz[][], int i, int j){
+        rgb imagem[][] = new rgb[i][j];
+        
+        int r[][] = extrairCanalR(matriz,i,j);
+        int g[][] = extrairCanalG(matriz,i,j);
+        int b[][] = extrairCanalB(matriz,i,j);
+         
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = new rgb();
+                
+                imagem[aL][aC].r = r[aL][aC];
+                imagem[aL][aC].g = b[aL][aC];
+                imagem[aL][aC].b = g[aL][aC];
+            }
+        
+        return imagem;
+    }
+    
+    public static rgb[][] setBRG(rgb matriz[][], int i, int j){
+        rgb imagem[][] = new rgb[i][j];
+        
+        int r[][] = extrairCanalR(matriz,i,j);
+        int g[][] = extrairCanalG(matriz,i,j);
+        int b[][] = extrairCanalB(matriz,i,j);
+         
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = new rgb();
+                
+                imagem[aL][aC].r = b[aL][aC];
+                imagem[aL][aC].g = r[aL][aC];
+                imagem[aL][aC].b = g[aL][aC];
+            }
+        
+        return imagem;
+    }
+    
+    public static rgb[][] setGRB(rgb matriz[][], int i, int j){
+        rgb imagem[][] = new rgb[i][j];
+        
+        int r[][] = extrairCanalR(matriz,i,j);
+        int g[][] = extrairCanalG(matriz,i,j);
+        int b[][] = extrairCanalB(matriz,i,j);
+         
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = new rgb();
+                
+                imagem[aL][aC].r = r[aL][aC];
+                imagem[aL][aC].g = b[aL][aC];
+                imagem[aL][aC].b = g[aL][aC];
+            }
+        
+        return imagem;
+    }
+    
+    public static rgb[][] setGBR(rgb matriz[][], int i, int j){
+        rgb imagem[][] = new rgb[i][j];
+        
+        int r[][] = extrairCanalR(matriz,i,j);
+        int g[][] = extrairCanalG(matriz,i,j);
+        int b[][] = extrairCanalB(matriz,i,j);
+         
+        for(int aL = 0; aL < i; aL++)
+            for(int aC = 0; aC < j; aC++){
+                imagem[aL][aC] = new rgb();
+                
+                imagem[aL][aC].r = g[aL][aC];
+                imagem[aL][aC].g = b[aL][aC];
+                imagem[aL][aC].b = r[aL][aC];
+            }
+        
+        return imagem;
+    }
+    
 }
