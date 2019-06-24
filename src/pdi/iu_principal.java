@@ -75,9 +75,9 @@ public class iu_principal extends javax.swing.JFrame {
         reduzCanalG = new javax.swing.JMenuItem();
         reduzCanalB = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        extrairCanalR = new javax.swing.JMenuItem();
-        extrairCanalG = new javax.swing.JMenuItem();
-        extrairCanalB = new javax.swing.JMenuItem();
+        extrairCanalR_ = new javax.swing.JMenuItem();
+        extrairCanalG_ = new javax.swing.JMenuItem();
+        extrairCanalB_ = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         inverterCanais_ = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -161,29 +161,29 @@ public class iu_principal extends javax.swing.JFrame {
         menuRGB_.add(reduzCanalB);
         menuRGB_.add(jSeparator1);
 
-        extrairCanalR.setText("Extrair Canal R");
-        extrairCanalR.addActionListener(new java.awt.event.ActionListener() {
+        extrairCanalR_.setText("Extrair Canal R");
+        extrairCanalR_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extrairCanalRActionPerformed(evt);
+                extrairCanalR_ActionPerformed(evt);
             }
         });
-        menuRGB_.add(extrairCanalR);
+        menuRGB_.add(extrairCanalR_);
 
-        extrairCanalG.setText("Extrair Canal G");
-        extrairCanalG.addActionListener(new java.awt.event.ActionListener() {
+        extrairCanalG_.setText("Extrair Canal G");
+        extrairCanalG_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extrairCanalGActionPerformed(evt);
+                extrairCanalG_ActionPerformed(evt);
             }
         });
-        menuRGB_.add(extrairCanalG);
+        menuRGB_.add(extrairCanalG_);
 
-        extrairCanalB.setText("Extrair Canal B");
-        extrairCanalB.addActionListener(new java.awt.event.ActionListener() {
+        extrairCanalB_.setText("Extrair Canal B");
+        extrairCanalB_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extrairCanalBActionPerformed(evt);
+                extrairCanalB_ActionPerformed(evt);
             }
         });
-        menuRGB_.add(extrairCanalB);
+        menuRGB_.add(extrairCanalB_);
         menuRGB_.add(jSeparator4);
 
         inverterCanais_.setText("Inverter Canais");
@@ -469,83 +469,51 @@ public class iu_principal extends javax.swing.JFrame {
         exibirImagemRGB(matrizRGBNova);
     }//GEN-LAST:event_reduzCanalBActionPerformed
 
-    private void extrairCanalRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalRActionPerformed
-        int auxCinza[][];
+    private void extrairCanalR_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalR_ActionPerformed
+        matrizCinza = matrizCinzaNova = rgb.extrairCanalR(matrizRGBNova, alturaNova, larguraNova);
         
-        auxCinza = rgb.extrairCanalR(imagemRGB,tamanho[0],tamanho[1]);
-        
-        try {
-            cinza.salvarMatriz(auxCinza, tamanho[0], tamanho[1], "C:\\novaImagem.pgm");
-        } catch (IOException ex) {
-            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_extrairCanalRActionPerformed
+        exibirImagemCinza(matrizCinzaNova);
+        menuCinza_.setEnabled(true);
+        menuRGB_.setEnabled(false);
+    }//GEN-LAST:event_extrairCanalR_ActionPerformed
 
-    private void extrairCanalGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalGActionPerformed
-        int auxCinza[][];
+    private void extrairCanalG_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalG_ActionPerformed
+        matrizCinza = matrizCinzaNova = rgb.extrairCanalG(matrizRGBNova, alturaNova, larguraNova);
         
-        auxCinza = rgb.extrairCanalG(imagemRGB,tamanho[0],tamanho[1]);
-        
-        try {
-            cinza.salvarMatriz(auxCinza, tamanho[0], tamanho[1], "C:\\novaImagem.pgm");
-        } catch (IOException ex) {
-            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_extrairCanalGActionPerformed
+        exibirImagemCinza(matrizCinzaNova);
+        menuCinza_.setEnabled(true);
+        menuRGB_.setEnabled(false);
+    }//GEN-LAST:event_extrairCanalG_ActionPerformed
 
-    private void extrairCanalBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalBActionPerformed
-        int auxCinza[][];
+    private void extrairCanalB_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extrairCanalB_ActionPerformed
+        matrizCinza = matrizCinzaNova = rgb.extrairCanalB(matrizRGBNova, alturaNova, larguraNova);
         
-        auxCinza = rgb.extrairCanalB(imagemRGB,tamanho[0],tamanho[1]);
-        
-        try {
-            cinza.salvarMatriz(auxCinza, tamanho[0], tamanho[1], "C:\\novaImagem.pgm");
-        } catch (IOException ex) {
-            Logger.getLogger(iu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_extrairCanalBActionPerformed
+        exibirImagemCinza(matrizCinzaNova);
+        menuCinza_.setEnabled(true);
+        menuRGB_.setEnabled(false);
+    }//GEN-LAST:event_extrairCanalB_ActionPerformed
 
     private void restaurar_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurar_ActionPerformed
         int r,g,b, rgb;
         
         if(pgmPPM){
-            for(int i = 0; i < altura; i++)
-                for(int j = 0; j < largura; j++){
-                    r = matrizRGB[i][j].getR(); // lendo r
-                    g = matrizRGB[i][j].getG(); // lendo g
-                    b = matrizRGB[i][j].getB(); // lendo b
-
-                    Color myColor = new Color(r,g,b);
-                    rgb = myColor.getRGB();
-
-                    imagem_ppm.setRGB(j, i, rgb);
-            }
-            jScrollPane1.setSize(imagem_ppm.getWidth()+80, imagem_ppm.getHeight()+80);           
-            setSize(imagem_ppm.getWidth()+80, imagem_ppm.getHeight()+110);        
-            jLabel_imagem.setIcon(new ImageIcon(imagem_ppm));
+            exibirImagemRGB(matrizRGB);
 
             matrizRGBNova = matrizRGB.clone();
             alturaNova = altura;
             larguraNova = largura;
 
-        }else{
-            imagem_pgm = new BufferedImage(largura, altura, BufferedImage.TYPE_BYTE_GRAY);
-            WritableRaster raster = imagem_pgm.getRaster();
-            int num;
-
-            for(int i = 0; i < altura; i++)
-                for(int j = 0; j < largura; j++){
-                    num = matrizCinza[i][j];
-                    raster.setSample(j, i, 0, num);
-            }
-            jScrollPane1.setSize(imagem_pgm.getWidth()+80, imagem_pgm.getHeight()+80);           
-            setSize(imagem_pgm.getWidth()+80, imagem_pgm.getHeight()+110);        
-            jLabel_imagem.setIcon(new ImageIcon(imagem_pgm));
+            menuCinza_.setEnabled(false);
+            menuRGB_.setEnabled(true);
+        }else{           
+            exibirImagemCinza(matrizCinza);
             
             matrizCinzaNova = matrizCinza.clone();            
             alturaNova = altura;
             larguraNova = largura;
 
+            menuCinza_.setEnabled(true);
+            menuRGB_.setEnabled(false);
         }        
     }//GEN-LAST:event_restaurar_ActionPerformed
 
@@ -803,9 +771,9 @@ public class iu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem clarear_;
     private javax.swing.JMenuItem equalizacaoGlobal_;
     private javax.swing.JMenuItem escurecer_;
-    private javax.swing.JMenuItem extrairCanalB;
-    private javax.swing.JMenuItem extrairCanalG;
-    private javax.swing.JMenuItem extrairCanalR;
+    private javax.swing.JMenuItem extrairCanalB_;
+    private javax.swing.JMenuItem extrairCanalG_;
+    private javax.swing.JMenuItem extrairCanalR_;
     private javax.swing.JMenuItem gama_;
     private javax.swing.JMenuItem gerarHistograma_;
     private javax.swing.JMenuItem girar90_;
